@@ -2,11 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dmytrobr</groupId>
-	<artifactId>QuoteTradeService</artifactId>
-	<packaging>war</packaging>
+	<artifactId>QuoteTradeServiceGenerator</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<properties>
-		<swagger.generator.version>2.2.1</swagger.generator.version>
+		<swagger.generator.version>2.2.1</swagger.generator.version>	
 	</properties>
 	<build>
 		<finalName>QuoteTradeService</finalName>
@@ -27,6 +26,9 @@
 							<modelPackage>com.dmytrobr.quoteservice.model</modelPackage>
 							<apiPackage>com.dmytrobr.quoteservice.api</apiPackage>
 							<invokerPackage>com.dmytrobr.quoteservice</invokerPackage>
+							<environmentVariables>
+								<models></models>
+							</environmentVariables>
 						</configuration>
 					</execution>
 				</executions>

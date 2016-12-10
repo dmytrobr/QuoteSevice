@@ -22,42 +22,63 @@
  * limitations under the License.
  */
 
-
 package com.dmytrobr.quoteservice.client.api;
 
-import com.dmytrobr.quoteservice.client.ApiException;
-import com.dmytrobr.quoteservice.client.model.QuoteRequest;
-import com.dmytrobr.quoteservice.client.model.Error;
-import com.dmytrobr.quoteservice.client.model.QuoteResponse;
+import java.util.LinkedList;
+import java.util.List;
+
+
+import org.jboss.resteasy.plugins.server.tjws.TJWSEmbeddedJaxrsServer;
+import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.dmytrobr.quoteservice.RestApplication;
+import com.dmytrobr.quoteservice.api.factories.QuoteApiServiceFactory;
+import com.dmytrobr.quoteservice.client.ApiException;
+import com.dmytrobr.quoteservice.client.Configuration;
+import com.dmytrobr.quoteservice.client.model.QuoteRequest;
+import com.dmytrobr.quoteservice.client.model.QuoteResponse;
+
+import io.undertow.Undertow;
+import io.undertow.server.HttpHandler;
+import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Headers;
 
 /**
  * API tests for ProductsApi
  */
 public class ProductsApiTest {
 
-    private final ProductsApi api = new ProductsApi();
+	private final ProductsApi api = new ProductsApi();
 
-    
-    /**
-     * Quote Sell or Buy transaction
-     *
-     * Service will handle requests to buy or sell a particular amount of a currency (the base currency) with another currency (the quote currency). The service uses the orderbook to determine the best price the user would be able to get for that request by executing trades on GDAX. 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void quotePostTest() throws ApiException {
-        QuoteRequest quote = null;
-        // QuoteResponse response = api.quotePost(quote);
+	@BeforeClass
+	public static void startEmbeddedServer() {
+		Configuration.setDefaultApiClient(ClientFactory.getApiClient());
+		
+		UndertowJaxrsServer server = new UndertowJaxrsServer().start();
+		server.deploy(RestApplication.class);
+	}
 
-        // TODO: test validations
-    }
-    
+	/**
+	 * Quote Sell or Buy transaction
+	 *
+	 * Service will handle requests to buy or sell a particular amount of a
+	 * currency (the base currency) with another currency (the quote currency).
+	 * The service uses the orderbook to determine the best price the user would
+	 * be able to get for that request by executing trades on GDAX.
+	 *
+	 * @throws ApiException
+	 *             if the Api call fails
+	 */
+	@Test
+	public void quotePostTest() throws ApiException {
+		QuoteRequest quote = new QuoteRequest();
+
+		quote.setAction("buy");
+		QuoteResponse response = api.quotePost(quote);
+
+		// TODO: test validations
+	}
+
 }
