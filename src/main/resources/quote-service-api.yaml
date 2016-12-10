@@ -1,0 +1,78 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Quote Service API
+  version: "1.0.0"
+# the domain of the service
+host: localhost
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /quote:
+    post:
+      summary: Quote Sell or Buy transaction
+      description: |
+        Service will handle requests to buy or sell a particular amount of a currency (the base currency) with another currency (the quote currency). The service uses the orderbook to determine the best price the user would be able to get for that request by executing trades on GDAX.
+      parameters:
+        - name: quote
+          in: body
+          description: Request your quote
+          required: true
+          schema:
+            $ref: '#/definitions/QuoteRequest'
+      tags:
+        - Products
+      responses:
+        200:
+          description: An array of products
+          schema:
+            $ref: '#/definitions/QuoteResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  QuoteRequest:
+    type: object
+    properties:
+      action:
+        type: string
+        description: Either “buy” or “sell”
+      base_currency:
+        type: string
+        description: The currency to be bought or sold
+      quote_currency:
+        type: string
+        description: The currency to quote the price in
+      amount: 
+        type: string
+        description: The amount of the base currency to be traded
+  QuoteResponse:
+    type: object
+    properties:
+      price:
+        type: string
+        description: The per-unit cost of the base currency
+      total:
+        type: string
+        description: Total quantity of quote currency
+      currency:
+        type: string
+        description: The quote currency    
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
