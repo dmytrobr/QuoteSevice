@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T11:39:05.186-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T15:01:10.616-05:00")
 public class QuoteResponse   {
   
   private String price = null;

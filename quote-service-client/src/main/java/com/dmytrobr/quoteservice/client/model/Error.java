@@ -29,12 +29,14 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Error
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T11:37:27.055-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T14:58:44.750-05:00")
 public class Error   {
   @SerializedName("code")
   private Integer code = null;
@@ -42,8 +44,8 @@ public class Error   {
   @SerializedName("message")
   private String message = null;
 
-  @SerializedName("fields")
-  private String fields = null;
+  @SerializedName("params")
+  private List<String> params = new ArrayList<String>();
 
   public Error code(Integer code) {
     this.code = code;
@@ -81,22 +83,27 @@ public class Error   {
     this.message = message;
   }
 
-  public Error fields(String fields) {
-    this.fields = fields;
+  public Error params(List<String> params) {
+    this.params = params;
+    return this;
+  }
+
+  public Error addParamsItem(String paramsItem) {
+    this.params.add(paramsItem);
     return this;
   }
 
    /**
-   * Get fields
-   * @return fields
+   * Get params
+   * @return params
   **/
   @ApiModelProperty(example = "null", value = "")
-  public String getFields() {
-    return fields;
+  public List<String> getParams() {
+    return params;
   }
 
-  public void setFields(String fields) {
-    this.fields = fields;
+  public void setParams(List<String> params) {
+    this.params = params;
   }
 
 
@@ -111,12 +118,12 @@ public class Error   {
     Error error = (Error) o;
     return Objects.equals(this.code, error.code) &&
         Objects.equals(this.message, error.message) &&
-        Objects.equals(this.fields, error.fields);
+        Objects.equals(this.params, error.params);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, fields);
+    return Objects.hash(code, message, params);
   }
 
   @Override
@@ -126,7 +133,7 @@ public class Error   {
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
+    sb.append("    params: ").append(toIndentedString(params)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -34,10 +34,32 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * QuoteRequest
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T11:37:27.055-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T14:58:44.750-05:00")
 public class QuoteRequest   {
+  /**
+   * Either buy or sell
+   */
+  public enum ActionEnum {
+    @SerializedName("buy")
+    BUY("buy"),
+    
+    @SerializedName("sell")
+    SELL("sell");
+
+    private String value;
+
+    ActionEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+  }
+
   @SerializedName("action")
-  private String action = null;
+  private ActionEnum action = null;
 
   @SerializedName("base_currency")
   private String baseCurrency = null;
@@ -48,21 +70,21 @@ public class QuoteRequest   {
   @SerializedName("amount")
   private String amount = null;
 
-  public QuoteRequest action(String action) {
+  public QuoteRequest action(ActionEnum action) {
     this.action = action;
     return this;
   }
 
    /**
-   * Either “buy” or “sell”
+   * Either buy or sell
    * @return action
   **/
-  @ApiModelProperty(example = "null", value = "Either “buy” or “sell”")
-  public String getAction() {
+  @ApiModelProperty(example = "null", value = "Either buy or sell")
+  public ActionEnum getAction() {
     return action;
   }
 
-  public void setAction(String action) {
+  public void setAction(ActionEnum action) {
     this.action = action;
   }
 

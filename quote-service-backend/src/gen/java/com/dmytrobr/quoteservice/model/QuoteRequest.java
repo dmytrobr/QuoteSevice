@@ -4,27 +4,49 @@ import java.util.Objects;
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T11:39:05.186-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T15:01:10.616-05:00")
 public class QuoteRequest   {
   
-  private String action = null;
+
+  /**
+   * Either buy or sell
+   */
+  public enum ActionEnum {
+    BUY("buy"),
+
+        SELL("sell");
+    private String value;
+
+    ActionEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+  }
+
+  private ActionEnum action = null;
   private String baseCurrency = null;
   private String quoteCurrency = null;
   private String amount = null;
 
   /**
-   * Either “buy” or “sell”
+   * Either buy or sell
    **/
   
   @JsonProperty("action")
-  public String getAction() {
+  public ActionEnum getAction() {
     return action;
   }
-  public void setAction(String action) {
+  public void setAction(ActionEnum action) {
     this.action = action;
   }
 

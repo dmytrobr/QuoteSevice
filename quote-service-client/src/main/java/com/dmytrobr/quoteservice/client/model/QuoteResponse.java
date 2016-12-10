@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * QuoteResponse
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T11:37:27.055-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T14:58:44.750-05:00")
 public class QuoteResponse   {
   @SerializedName("price")
   private String price = null;

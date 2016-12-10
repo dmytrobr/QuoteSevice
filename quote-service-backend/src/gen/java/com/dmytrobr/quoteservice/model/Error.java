@@ -4,16 +4,17 @@ import java.util.Objects;
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.List;
 
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T11:39:05.186-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T15:01:10.616-05:00")
 public class Error   {
   
   private Integer code = null;
   private String message = null;
-  private String fields = null;
+  private List<String> params = new ArrayList<String>();
 
   /**
    **/
@@ -40,12 +41,12 @@ public class Error   {
   /**
    **/
   
-  @JsonProperty("fields")
-  public String getFields() {
-    return fields;
+  @JsonProperty("params")
+  public List<String> getParams() {
+    return params;
   }
-  public void setFields(String fields) {
-    this.fields = fields;
+  public void setParams(List<String> params) {
+    this.params = params;
   }
 
 
@@ -60,12 +61,12 @@ public class Error   {
     Error error = (Error) o;
     return Objects.equals(code, error.code) &&
         Objects.equals(message, error.message) &&
-        Objects.equals(fields, error.fields);
+        Objects.equals(params, error.params);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, fields);
+    return Objects.hash(code, message, params);
   }
 
   @Override
@@ -75,7 +76,7 @@ public class Error   {
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
+    sb.append("    params: ").append(toIndentedString(params)).append("\n");
     sb.append("}");
     return sb.toString();
   }

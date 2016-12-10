@@ -24,26 +24,16 @@
 
 package com.dmytrobr.quoteservice.client.api;
 
-import java.util.LinkedList;
-import java.util.List;
-
-
-import org.jboss.resteasy.plugins.server.tjws.TJWSEmbeddedJaxrsServer;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.dmytrobr.quoteservice.RestApplication;
-import com.dmytrobr.quoteservice.api.factories.QuoteApiServiceFactory;
 import com.dmytrobr.quoteservice.client.ApiException;
 import com.dmytrobr.quoteservice.client.Configuration;
 import com.dmytrobr.quoteservice.client.model.QuoteRequest;
+import com.dmytrobr.quoteservice.client.model.QuoteRequest.ActionEnum;
 import com.dmytrobr.quoteservice.client.model.QuoteResponse;
-
-import io.undertow.Undertow;
-import io.undertow.server.HttpHandler;
-import io.undertow.server.HttpServerExchange;
-import io.undertow.util.Headers;
 
 /**
  * API tests for ProductsApi
@@ -75,7 +65,7 @@ public class ProductsApiTest {
 	public void quotePostTest() throws ApiException {
 		QuoteRequest quote = new QuoteRequest();
 
-		quote.setAction("buy");
+		quote.setAction(ActionEnum.BUY);
 		QuoteResponse response = api.quotePost(quote);
 
 		// TODO: test validations

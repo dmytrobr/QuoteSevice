@@ -5,7 +5,7 @@
 	<artifactId>QuoteTradeServiceGenerator</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<properties>
-		<swagger.generator.version>2.2.1</swagger.generator.version>	
+		<swagger.generator.version>2.2.1</swagger.generator.version>
 	</properties>
 	<build>
 		<finalName>QuoteTradeService</finalName>
@@ -19,21 +19,21 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<phase>validate</phase>
+						<phase>generate-sources</phase>
 						<configuration>
-							<inputSpec>src/main/resources/quote-service-api.yaml</inputSpec>
-							<language>jaxrs-resteasy</language>
-							<modelPackage>com.dmytrobr.quoteservice.model</modelPackage>
-							<apiPackage>com.dmytrobr.quoteservice.api</apiPackage>
+							<inputSpec>${basedir}/../quote-service-backend/src/main/resources/quote-service-api.yaml</inputSpec>
+							<language>java</language>
+							<modelPackage>com.dmytrobr.quoteservice.client.model</modelPackage>
+							<apiPackage>com.dmytrobr.quoteservice.client.api</apiPackage>
 							<invokerPackage>com.dmytrobr.quoteservice</invokerPackage>
 							<environmentVariables>
 								<models></models>
 							</environmentVariables>
+							<output>${basedir}/../quote-service-client</output>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
 </project>

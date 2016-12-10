@@ -69,6 +69,7 @@
 				</configuration>
 			</plugin>
 
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -100,6 +101,7 @@
 					</execution>
 				</executions>
 			</plugin>
+				
 		</plugins>
 	</build>
 	<dependencies>
@@ -147,7 +149,6 @@
 			<groupId>com.dmytrobr</groupId>
 			<artifactId>quote-service-backend</artifactId>
 			<version>${project.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
