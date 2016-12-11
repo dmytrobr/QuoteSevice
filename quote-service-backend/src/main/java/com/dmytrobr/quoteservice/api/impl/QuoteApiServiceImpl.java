@@ -5,12 +5,12 @@ import javax.ws.rs.core.SecurityContext;
 
 import com.dmytrobr.quoteservice.BookAggregator;
 import com.dmytrobr.quoteservice.BruteForceAggregator;
+import com.dmytrobr.quoteservice.api.ApiException;
 import com.dmytrobr.quoteservice.api.NotFoundException;
 import com.dmytrobr.quoteservice.api.QuoteApiService;
 import com.dmytrobr.quoteservice.api.factories.ClientFactory;
 import com.dmytrobr.quoteservice.model.QuoteRequest;
 import com.dmytrobr.quoteservice.model.QuoteResponse;
-import com.gdax.service.ApiException;
 import com.gdax.service.client.api.ProductsApi;
 import com.gdax.service.client.model.ProductBookResponse;
 
@@ -28,7 +28,7 @@ public class QuoteApiServiceImpl extends QuoteApiService {
 		try {
 			try {
 				orderBook = gdaxApi.getProductOrderBook(productId, "2");
-			} catch (ApiException e) {
+			} catch (com.gdax.service.ApiException e) {
 				if (e.getCode() == 404) {
 					// trying to find inverse product
 					String reverseProductId = quote.getQuoteCurrency() + "-" + quote.getBaseCurrency();
@@ -38,41 +38,41 @@ public class QuoteApiServiceImpl extends QuoteApiService {
 					throw e;
 				}
 			}
-		} catch (ApiException e) {
+		} catch (com.gdax.service.ApiException e) {
 			return Response.status(404).entity("product does not exist for requested quote and base currencies")
 					.build();
 		}
 		QuoteResponse quoteResponse;
-		if (inversed) {
-			switch (quote.getAction()) {
-			case BUY:
-				quoteResponse = bookAggregator.aggregateInversedOrders(orderBook.getBids(), quote.getAmount(),
-						quote.getAction());
-				break;
-			case SELL:
-				quoteResponse = bookAggregator.aggregateInversedOrders(orderBook.getAsks(), quote.getAmount(),
-						quote.getAction());
-				break;
+		try {
+			if (inversed) {
+				switch (quote.getAction()) {
+				case BUY:
+					quoteResponse = bookAggregator.aggregateOrders(orderBook.getBids(), quote.getAmount(), true);
+					break;
+				case SELL:
+					quoteResponse = bookAggregator.aggregateOrders(orderBook.getAsks(), quote.getAmount(), true);
+					break;
 
-			default:
-				return Response.status(400).entity("requested quote action is not supported").build();
-			}
+				default:
+					return Response.status(400).entity("requested quote action is not supported").build();
+				}
 
-		} else {
-			switch (quote.getAction()) {
-			case BUY:
-				quoteResponse = bookAggregator.aggregateOrders(orderBook.getAsks(), quote.getAmount(),
-						quote.getAction());
-				break;
-			case SELL:
-				quoteResponse = bookAggregator.aggregateOrders(orderBook.getBids(), quote.getAmount(),
-						quote.getAction());
-				break;
-			default:
-				return Response.status(400).entity("requested quote action is not supported").build();
+			} else {
+				switch (quote.getAction()) {
+				case BUY:
+					quoteResponse = bookAggregator.aggregateOrders(orderBook.getAsks(), quote.getAmount(), false);
+					break;
+				case SELL:
+					quoteResponse = bookAggregator.aggregateOrders(orderBook.getBids(), quote.getAmount(), false);
+					break;
+				default:
+					return Response.status(400).entity("requested quote action is not supported").build();
+				}
 			}
+		} catch (Exception e) {
+			return Response.status(500).entity(e.getMessage()).build();
 		}
-
+		quoteResponse.setCurrency(quote.getQuoteCurrency());
 		return Response.ok().entity(quoteResponse).build();
 	}
 }

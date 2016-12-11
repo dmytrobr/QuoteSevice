@@ -44,8 +44,8 @@ public class QuoteApiTest {
 	public void quoteTransactionTest() throws ApiException {
 		QuoteRequest quote = new QuoteRequest();
 
-		quote.action(ActionEnum.BUY);
-		quote.amount("123");
+		quote.action(ActionEnum.SELL);
+		quote.amount("50");
 		quote.baseCurrency("BTC");
 		quote.quoteCurrency("USD");
 
