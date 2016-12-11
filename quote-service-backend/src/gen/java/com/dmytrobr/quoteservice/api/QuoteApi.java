@@ -21,7 +21,7 @@ import javax.ws.rs.*;
 @Path("/quote")
 
 @Produces({ "application/json" })
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-10T11:39:05.186-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-11T10:49:55.979-05:00")
 public class QuoteApi  {
    private final QuoteApiService delegate = QuoteApiServiceFactory.getQuoteApi();
 
@@ -29,8 +29,8 @@ public class QuoteApi  {
     
     
     @Produces({ "application/json" })
-    public Response quotePost( QuoteRequest quote,@Context SecurityContext securityContext)
+    public Response quoteTransaction( QuoteRequest quote,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.quotePost(quote,securityContext);
+        return delegate.quoteTransaction(quote,securityContext);
     }
 }

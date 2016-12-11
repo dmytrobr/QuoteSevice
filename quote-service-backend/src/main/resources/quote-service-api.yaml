@@ -1,5 +1,3 @@
-# this is an example of the Uber API
-# as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
   title: Quote Service API
@@ -16,6 +14,7 @@ produces:
 paths:
   /quote:
     post:
+      operationId: quoteTransaction
       summary: Quote Sell or Buy transaction
       description: |
         Service will handle requests to buy or sell a particular amount of a currency (the base currency) with another currency (the quote currency). The service uses the orderbook to determine the best price the user would be able to get for that request by executing trades on GDAX.
