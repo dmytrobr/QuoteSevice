@@ -1,0 +1,66 @@
+swagger: '2.0'
+info:
+  title: GDAX Product Order API
+  version: "1.0.0"
+# the domain of the service
+host: api.gdax.com
+# array of all schemes that your API supports
+schemes:
+  - https
+
+produces:
+  - application/json
+paths:
+  '/products/{productId}/book':
+    get:
+      summary: Book fors selected product
+      parameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+        - name: level
+          in: query
+          type: string
+          enum:
+            - 1:
+              description: 	Only the best bid and ask
+            - 2:
+              description: 	Top 50 bids and asks (aggregated)
+            - 3:
+              description: 	Full order book (non aggregated)
+      responses:
+        200:
+          description: Producs bids
+          schema:
+            $ref: '#/definitions/ProductBookResponse'
+
+
+definitions:
+  ProductBookResponse:
+    type: object
+    properties:
+      sequence:
+        type: string
+      bids:
+        type: array
+        items:
+          $ref: '#/definitions/Bid'
+      asks:
+        type: array
+        items:
+          $ref: '#/definitions/Bid'
+  Bid:
+    type: object
+    properties:
+      price:
+        type: number
+        format: double
+      size:
+        type: number
+        format: double
+      num-orders:
+        type: integer
+        format: int32
+
+          
