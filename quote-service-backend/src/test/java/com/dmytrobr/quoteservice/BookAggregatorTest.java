@@ -93,7 +93,7 @@ public class BookAggregatorTest {
 			bookAggregator.aggregateOrders(orders, "10000", false);
 		} catch (ApiException e) {
 			assertEquals(400,e.getCode());
-			assertEquals(Messages.NOT_ENOUGH_ORDERS,e.getMessage());
+			assertEquals(Messages.NOT_ENOUGH_ORDERS.getMessage(),e.getMessage());
 			return;
 		}
 		fail("Exception should occur in prior code");

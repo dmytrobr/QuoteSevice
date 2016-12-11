@@ -1,5 +1,7 @@
 package com.dmytrobr.quoteservice.api.impl;
 
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
@@ -40,37 +42,28 @@ public class QuoteApiServiceImpl extends QuoteApiService {
 				}
 			}
 		} catch (com.gdax.service.ApiException e) {
-			return Response.status(404).entity("product does not exist for requested quote and base currencies")
+			return Response.status(404).entity(Messages.PRODUCT_NOT_FOUND.getMessage())
 					.build();
 		}
 		QuoteResponse quoteResponse;
 		try {
-			if (inversed) {
-				switch (quote.getAction()) {
-				case BUY:
-					quoteResponse = bookAggregator.aggregateOrders(orderBook.getBids(), quote.getAmount(), true);
-					break;
-				case SELL:
-					quoteResponse = bookAggregator.aggregateOrders(orderBook.getAsks(), quote.getAmount(), true);
-					break;
+			List<List<String>> ordersToUse;
+			switch (quote.getAction()) {
+			case BUY:
+				ordersToUse = inversed ? orderBook.getBids() : orderBook.getAsks();
+				break;
+			case SELL:
+				ordersToUse = inversed ? orderBook.getAsks() : orderBook.getBids();
+				break;
 
-				default:
-					return Response.status(400).entity(Messages.ACTION_NOT_SUPPORTED.getMessage()).build();
-				}
-
-			} else {
-				switch (quote.getAction()) {
-				case BUY:
-					quoteResponse = bookAggregator.aggregateOrders(orderBook.getAsks(), quote.getAmount(), false);
-					break;
-				case SELL:
-					quoteResponse = bookAggregator.aggregateOrders(orderBook.getBids(), quote.getAmount(), false);
-					break;
-				default:
-					return Response.status(400).entity("requested quote action is not supported").build();
-				}
+			default:
+				return Response.status(400).entity(Messages.ACTION_NOT_SUPPORTED.getMessage()).build();
 			}
-		} catch (ApiException e) {
+
+			quoteResponse = bookAggregator.aggregateOrders(ordersToUse, quote.getAmount(), inversed);
+		} catch (
+
+		ApiException e) {
 			return Response.status(e.getCode()).entity(e.getMessage()).build();
 		}
 		quoteResponse.setCurrency(quote.getQuoteCurrency());

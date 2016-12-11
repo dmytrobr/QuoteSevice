@@ -16,7 +16,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-11T10:49:55.979-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaResteasyServerCodegen", date = "2016-12-11T18:36:41.285-05:00")
 public abstract class QuoteApiService {
       public abstract Response quoteTransaction(QuoteRequest quote,SecurityContext securityContext)
       throws NotFoundException;

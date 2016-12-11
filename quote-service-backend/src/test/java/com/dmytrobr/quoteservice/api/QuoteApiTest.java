@@ -3,6 +3,7 @@ package com.dmytrobr.quoteservice.api;
 import static org.junit.Assert.*;
 
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,13 +21,23 @@ import com.dmytrobr.quoteservice.client.model.QuoteResponse;
 public class QuoteApiTest {
 
 	private final QuoteApi api = new QuoteApi();
+	private static UndertowJaxrsServer server;
 
 	@BeforeClass
 	public static void startEmbeddedServer() {
 		Configuration.setDefaultApiClient(ClientFactory.getApiClient());
 
-		UndertowJaxrsServer server = new UndertowJaxrsServer().start();
+		server = new UndertowJaxrsServer().start();
+
 		server.deploy(RestApplication.class);
+	}
+
+	@AfterClass
+	public static void stopEmbeddedServer() {
+		Configuration.setDefaultApiClient(ClientFactory.getApiClient());
+
+		server.stop();
+
 	}
 
 	/**
