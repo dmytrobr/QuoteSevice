@@ -1,5 +1,6 @@
-package com.dmytrobr.quoteservice;
+package com.dmytrobr.quoteservice.api;
 
+import static org.junit.Assert.*;
 
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.junit.BeforeClass;
@@ -40,14 +41,36 @@ public class QuoteApiTest {
 	 *             if the Api call fails
 	 */
 	@Test
-	public void quotePostTest() throws ApiException {
+	public void quoteTransactionTest() throws ApiException {
+		QuoteRequest quote = new QuoteRequest();
+
+		quote.action(ActionEnum.BUY);
+		quote.amount("123");
+		quote.baseCurrency("BTC");
+		quote.quoteCurrency("USD");
+
+		QuoteResponse response = api.quoteTransaction(quote);
+		assertNotNull(response);
+		assertNotNull(response.getCurrency());
+		assertNotNull(response.getPrice());
+		assertNotNull(response.getTotal());
+
+	}
+
+	@Test
+	public void quoteTransactionInvalidProduct() throws ApiException {
 		QuoteRequest quote = new QuoteRequest();
 
 		quote.action(ActionEnum.BUY);
 		quote.amount("123");
 		quote.baseCurrency("USD");
+		quote.quoteCurrency("BTC1");
 
-		QuoteResponse response = api.quoteTransaction(quote);
+		try {
+			api.quoteTransaction(quote);
+		} catch (ApiException e) {
+			assertEquals(404, e.getCode());
+		}
 
 	}
 

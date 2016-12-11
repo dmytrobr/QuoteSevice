@@ -13,7 +13,10 @@ produces:
 paths:
   '/products/{productId}/book':
     get:
+      operationId: getProductOrderBook
       summary: Book fors selected product
+      tags:
+        - Products
       parameters:
         - name: productId
           in: path
@@ -22,13 +25,6 @@ paths:
         - name: level
           in: query
           type: string
-          enum:
-            - 1:
-              description: 	Only the best bid and ask
-            - 2:
-              description: 	Top 50 bids and asks (aggregated)
-            - 3:
-              description: 	Full order book (non aggregated)
       responses:
         200:
           description: Producs bids
@@ -45,11 +41,15 @@ definitions:
       bids:
         type: array
         items:
-          $ref: '#/definitions/Bid'
+          type: array
+          items:
+            type: string
       asks:
         type: array
         items:
-          $ref: '#/definitions/Bid'
+          type: array
+          items:
+            type: string
   Bid:
     type: object
     properties:

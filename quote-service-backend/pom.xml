@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>quote-service-backend</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>

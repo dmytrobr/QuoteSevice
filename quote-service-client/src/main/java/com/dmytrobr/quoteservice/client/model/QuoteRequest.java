@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * QuoteRequest
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-10T14:58:44.750-05:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-12-11T10:49:08.895-05:00")
 public class QuoteRequest   {
   /**
    * Either buy or sell

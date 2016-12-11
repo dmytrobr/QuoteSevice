@@ -1,4 +1,4 @@
-package com.dmytrobr.quoteservice;
+package com.dmytrobr.quoteservice.api;
 
 import org.jboss.resteasy.test.TestPortProvider;
 

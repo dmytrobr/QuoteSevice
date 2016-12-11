@@ -11,7 +11,8 @@
 		<swagger.generator.version>2.2.1</swagger.generator.version>
 	</properties>
 	<modules>
-		<module>quote-service-backend</module>
+		<module>gdax-service-client</module>
 		<module>quote-service-client</module>
+		<module>quote-service-backend</module>
 	</modules>
 </project>

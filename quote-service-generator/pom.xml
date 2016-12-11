@@ -26,13 +26,14 @@
 							<language>java</language>
 							<modelPackage>com.dmytrobr.quoteservice.client.model</modelPackage>
 							<apiPackage>com.dmytrobr.quoteservice.client.api</apiPackage>
-							<invokerPackage>com.dmytrobr.quoteservice</invokerPackage>
+							<invokerPackage>com.dmytrobr.quoteservice.client</invokerPackage>
 							<environmentVariables>
 								<models></models>
+								<apis></apis>
 							</environmentVariables>
 							<output>${basedir}/../quote-service-client</output>
 						</configuration>
-					</execution>				
+					</execution>		
 					<execution>
 						<id>gdax-client</id>
 						<goals>
@@ -45,9 +46,10 @@
 							<modelPackage>com.gdax.service.client.model</modelPackage>
 							<apiPackage>com.gdax.service.client.api</apiPackage>
 							<invokerPackage>com.gdax.service</invokerPackage>
-						<!-- 	<environmentVariables>
+						 	<environmentVariables>
 								<models></models>
-							</environmentVariables> -->
+								<apis></apis>
+							</environmentVariables>
 							<output>${basedir}/../gdax-service-client</output>
 							<artifactId>gdax-service-client</artifactId>
 						</configuration>
