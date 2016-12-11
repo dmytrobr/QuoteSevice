@@ -4,6 +4,7 @@ import com.gdax.service.ApiClient;
 
 public class ClientFactory {
 
+	private static final String GDAX_API_URL = "https://api.gdax.com";
 	private static ApiClient apiClient;
 
 	public static ApiClient getGdaxApiClient() {
@@ -12,7 +13,8 @@ public class ClientFactory {
 		}
 
 		apiClient = new ApiClient();
-		apiClient.setBasePath("https://api.gdax.com");
+		apiClient.setBasePath(GDAX_API_URL);
+		apiClient.setUserAgent("QuoteApi");
 
 		apiClient.setDebugging(true);
 		apiClient.setVerifyingSsl(false);

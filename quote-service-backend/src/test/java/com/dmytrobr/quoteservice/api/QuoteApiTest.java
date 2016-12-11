@@ -58,6 +58,30 @@ public class QuoteApiTest {
 	}
 
 	@Test
+	public void quoteTransactionForInverseProductSellTest() throws ApiException {
+		QuoteRequest quote = new QuoteRequest();
+
+		quote.action(ActionEnum.SELL);
+		quote.amount("50");
+		quote.baseCurrency("USD");
+		quote.quoteCurrency("BTC");
+
+		QuoteResponse response = api.quoteTransaction(quote);
+		assertNotNull(response);
+		assertNotNull(response.getCurrency());
+		assertNotNull(response.getPrice());
+		assertNotNull(response.getTotal());
+
+		quote.action(ActionEnum.BUY);
+		response = api.quoteTransaction(quote);
+		assertNotNull(response);
+		assertNotNull(response.getCurrency());
+		assertNotNull(response.getPrice());
+		assertNotNull(response.getTotal());
+
+	}
+
+	@Test
 	public void quoteTransactionInvalidProduct() throws ApiException {
 		QuoteRequest quote = new QuoteRequest();
 
@@ -70,6 +94,23 @@ public class QuoteApiTest {
 			api.quoteTransaction(quote);
 		} catch (ApiException e) {
 			assertEquals(404, e.getCode());
+		}
+
+	}
+
+	@Test
+	public void quoteTransactionInvalidRequestAmount() throws ApiException {
+		QuoteRequest quote = new QuoteRequest();
+
+		quote.action(ActionEnum.BUY);
+		quote.amount("ABCD");
+		quote.baseCurrency("USD");
+		quote.quoteCurrency("BTC");
+
+		try {
+			api.quoteTransaction(quote);
+		} catch (ApiException e) {
+			assertEquals(400, e.getCode());
 		}
 
 	}

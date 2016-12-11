@@ -5,6 +5,7 @@ import javax.ws.rs.core.SecurityContext;
 
 import com.dmytrobr.quoteservice.BookAggregator;
 import com.dmytrobr.quoteservice.BruteForceAggregator;
+import com.dmytrobr.quoteservice.Messages;
 import com.dmytrobr.quoteservice.api.ApiException;
 import com.dmytrobr.quoteservice.api.NotFoundException;
 import com.dmytrobr.quoteservice.api.QuoteApiService;
@@ -54,7 +55,7 @@ public class QuoteApiServiceImpl extends QuoteApiService {
 					break;
 
 				default:
-					return Response.status(400).entity("requested quote action is not supported").build();
+					return Response.status(400).entity(Messages.ACTION_NOT_SUPPORTED.getMessage()).build();
 				}
 
 			} else {
@@ -69,8 +70,8 @@ public class QuoteApiServiceImpl extends QuoteApiService {
 					return Response.status(400).entity("requested quote action is not supported").build();
 				}
 			}
-		} catch (Exception e) {
-			return Response.status(500).entity(e.getMessage()).build();
+		} catch (ApiException e) {
+			return Response.status(e.getCode()).entity(e.getMessage()).build();
 		}
 		quoteResponse.setCurrency(quote.getQuoteCurrency());
 		return Response.ok().entity(quoteResponse).build();

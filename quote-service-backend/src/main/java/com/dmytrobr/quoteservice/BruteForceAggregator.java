@@ -61,7 +61,7 @@ public class BruteForceAggregator implements BookAggregator {
 				}
 			}
 		}
-		throw new ApiException(400, "not enough orders to quote amount of currency requested");
+		throw new ApiException(400, Messages.NOT_ENOUGH_ORDERS.getMessage());
 	}
 
 	private QuoteResponse buildResponse(double totalAmountFound, double totalCost) {

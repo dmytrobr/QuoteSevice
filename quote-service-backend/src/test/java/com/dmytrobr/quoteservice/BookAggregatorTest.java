@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -28,6 +29,20 @@ public class BookAggregatorTest {
 		assertEquals(295.0, Double.parseDouble(quoteResponse.getTotal()), COMPARISON_DELTA);
 		assertEquals(2.95, Double.parseDouble(quoteResponse.getPrice()), COMPARISON_DELTA);
 	}
+	
+	@Test
+	public void aggregateWithEmptyOrderList() throws Exception {
+		List<List<String>> orders = Collections.emptyList();
+		try {
+			bookAggregator.aggregateOrders(orders, "100", false);
+		} catch (ApiException e) {
+			assertEquals(400,e.getCode());
+			assertEquals(Messages.NOT_ENOUGH_ORDERS.getMessage(),e.getMessage());
+			return;
+		}
+		fail("Exception should occur in prior code");
+	}
+
 
 	@SuppressWarnings("unchecked")
 	@Test
@@ -75,8 +90,10 @@ public class BookAggregatorTest {
 				Arrays.asList(new String[] { "4.9", "11", "10" }));
 
 		try {
-			QuoteResponse quoteResponse = bookAggregator.aggregateOrders(orders, "10000", false);
+			bookAggregator.aggregateOrders(orders, "10000", false);
 		} catch (ApiException e) {
+			assertEquals(400,e.getCode());
+			assertEquals(Messages.NOT_ENOUGH_ORDERS,e.getMessage());
 			return;
 		}
 		fail("Exception should occur in prior code");
